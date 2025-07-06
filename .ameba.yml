@@ -1,0 +1,4 @@
+Style/RedundantBegin:
+  Enabled: false
+LineLength:
+  MaxLength: 120

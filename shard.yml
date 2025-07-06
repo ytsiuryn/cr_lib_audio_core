@@ -1,0 +1,22 @@
+name: cr_ds
+version: 0.1.0
+
+authors:
+  - Yury Tsiuryn <yuri.turin@gmail.com>
+
+# description: |
+#   Short description of cr_ds
+
+# dependencies:
+#   pg:
+#     github: will/crystal-pg
+#     version: "~> 0.5"
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+
+#   webmock:
+#     github: manastech/webmock.cr
+
+# license: MIT

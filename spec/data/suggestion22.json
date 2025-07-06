@@ -1,0 +1,773 @@
+{
+    "r": {
+        "title": "Black Holes and Revelations",
+        "total_discs": 1,
+        "discs": [
+            {
+                "num": 1,
+                "fmt": {
+                    "attrs": [
+                        "Digital",
+                        "Media"
+                    ],
+                    "media": "Digital"
+                },
+                "ids": {
+                    "disc_id": "12345"
+                }
+            }
+        ],
+        "total_tracks": 12,
+        "tracks": [
+            {
+                "disc_num": 1,
+                "roles": {
+                    "test": [
+                        "actor_role"
+                    ]
+                },
+                "record": {
+                    "roles": {
+                        "Audrey Riley": [
+                            "conductor"
+                        ],
+                        "Dominic Howard": [
+                            "drums (drum set)",
+                            "percussion"
+                        ],
+                        "Christopher Wolstenholme": [
+                            "vocal",
+                            "bass guitar"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Around Art": [
+                            "strings"
+                        ],
+                        "Matt Bellamy": [
+                            "instrument arranger",
+                            "keyboard",
+                            "vocal",
+                            "guitar"
+                        ],
+                        "Rich Costey": [
+                            "producer",
+                            "mix",
+                            "recording"
+                        ],
+                        "Edoardo de Angelis": [
+                            "violin"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "cccc851d-9214-4d24-9df6-e45f62664dbc"
+                    },
+                    "moods": [
+                        "Calm"
+                    ],
+                    "notes": [
+                        "test_notes"
+                    ]
+                },
+                "composition": {
+                    "roles": {
+                        "test": [
+                            "actor_role"
+                        ]
+                    },
+                    "ids": {
+                        "iswc": "12345"
+                    },
+                    "lyrics": {
+                        "is_synced": true,
+                        "lng": "en",
+                        "text": "bla-bla"
+                    },
+                    "notes": [
+                        "test_notes"
+                    ]
+                },
+                "position": "01",
+                "title": "Take a Bow",
+                "ids": {
+                    "musicbrainz": "29fab063-5ca9-30df-82a6-c3807e22b898"
+                },
+                "notes": [
+                    "some notes"
+                ],
+                "unprocessed": {
+                    "test": "unprocessed"
+                },
+                "ainfo": {
+                    "avg_bitrate": 1750,
+                    "channels": 2,
+                    "samplerate": 44100,
+                    "samplesize": 16,
+                    "duration": {
+                        "secs": 275,
+                        "nanos": 466000000
+                    }
+                },
+                "finfo": {
+                    "fname": "test_track_name",
+                    "fsize": 100500,
+                    "mtime": 100500100
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Christopher Wolstenholme": [
+                            "bass guitar",
+                            "vocal"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Rich Costey": [
+                            "recording",
+                            "mix",
+                            "producer"
+                        ],
+                        "Mark Rinaldi": [
+                            "mix"
+                        ],
+                        "Dominic Howard": [
+                            "drums (drum set)",
+                            "percussion"
+                        ],
+                        "Matt Bellamy": [
+                            "guitar",
+                            "vocal",
+                            "keyboard"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "60e94685-0481-4d3d-bd84-11c389d9b2a5"
+                    }
+                },
+                "position": "02",
+                "title": "Starlight",
+                "ids": {
+                    "musicbrainz": "fb3e08e3-0c61-324b-a3bb-5c433751bdf4"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 239,
+                        "nanos": 800000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Dominic Howard": [
+                            "drums (drum set)",
+                            "percussion"
+                        ],
+                        "Matt Bellamy": [
+                            "keyboard",
+                            "guitar",
+                            "vocal"
+                        ],
+                        "Christopher Wolstenholme": [
+                            "bass guitar",
+                            "vocal"
+                        ],
+                        "Rich Costey": [
+                            "recording",
+                            "producer",
+                            "mix"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "ff1e3e1a-f6e8-4692-b426-355880383bb6"
+                    }
+                },
+                "position": "03",
+                "title": "Supermassive Black Hole",
+                "ids": {
+                    "musicbrainz": "39508dc3-a70b-3211-b24f-c16b7ae74437"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 209,
+                        "nanos": 360000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Christopher Wolstenholme": [
+                            "bass guitar",
+                            "vocal"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Dominic Howard": [
+                            "drums (drum set)",
+                            "percussion"
+                        ],
+                        "Rich Costey": [
+                            "recording",
+                            "producer",
+                            "mix"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Matt Bellamy": [
+                            "vocal",
+                            "keyboard",
+                            "guitar"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "d604a1b6-2cbd-4dc6-9682-a746405f247b"
+                    }
+                },
+                "position": "04",
+                "title": "Map of the Problematique",
+                "ids": {
+                    "musicbrainz": "97387cba-360b-39bf-a27f-fec799e68487"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 258,
+                        "nanos": 839000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Matt Bellamy": [
+                            "guitar",
+                            "keyboard",
+                            "vocal"
+                        ],
+                        "Rich Costey": [
+                            "mix",
+                            "producer",
+                            "recording"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Christopher Wolstenholme": [
+                            "bass guitar",
+                            "vocal"
+                        ],
+                        "Dominic Howard": [
+                            "percussion",
+                            "drums (drum set)"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "c3823516-739c-4697-933b-f7f260e9aa60"
+                    }
+                },
+                "position": "05",
+                "title": "Soldier’s Poem",
+                "ids": {
+                    "musicbrainz": "bbec2b1d-6558-325a-8d82-2d884ebeec7f"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 123,
+                        "nanos": 893000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Christopher Wolstenholme": [
+                            "vocal",
+                            "bass guitar"
+                        ],
+                        "Matt Bellamy": [
+                            "vocal",
+                            "keyboard",
+                            "guitar"
+                        ],
+                        "Dominic Howard": [
+                            "percussion",
+                            "drums (drum set)"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Rich Costey": [
+                            "producer",
+                            "mix",
+                            "recording"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "55a7eb65-9b9e-4701-b6ae-de32b3a5652e"
+                    }
+                },
+                "position": "06",
+                "title": "Invincible",
+                "ids": {
+                    "musicbrainz": "0f5706e3-81ca-3e11-9073-2f87d9d1f430"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 300,
+                        "nanos": 240000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Matt Bellamy": [
+                            "vocal",
+                            "guitar",
+                            "keyboard"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Rich Costey": [
+                            "recording",
+                            "producer",
+                            "mix"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Dominic Howard": [
+                            "drums (drum set)",
+                            "percussion"
+                        ],
+                        "Christopher Wolstenholme": [
+                            "vocal",
+                            "bass guitar"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "aa0a3d7d-6f24-47ce-9809-ff58cea0a7bf"
+                    }
+                },
+                "position": "07",
+                "title": "Assassin",
+                "ids": {
+                    "musicbrainz": "68d84224-9853-312c-9518-25f88c4e98f3"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 211,
+                        "nanos": 133000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Christopher Wolstenholme": [
+                            "bass guitar",
+                            "vocal"
+                        ],
+                        "Matt Bellamy": [
+                            "guitar",
+                            "vocal",
+                            "keyboard"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Tom Kirk": [
+                            "misc"
+                        ],
+                        "Dominic Howard": [
+                            "percussion",
+                            "drums (drum set)"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Rich Costey": [
+                            "producer",
+                            "recording",
+                            "mix"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "b3feb9d5-9ac5-493d-8f7c-10bf5013e964"
+                    }
+                },
+                "position": "08",
+                "title": "Exo-Politics",
+                "ids": {
+                    "musicbrainz": "e791a838-32f3-3f50-b336-1b0030568679"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 233,
+                        "nanos": 226000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Edoardo de Angelis": [
+                            "violin"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Dominic Howard": [
+                            "percussion",
+                            "drums (drum set)"
+                        ],
+                        "Marco Brioschi": [
+                            "trumpet"
+                        ],
+                        "Around Art": [
+                            "strings"
+                        ],
+                        "Mauro Pagani": [
+                            "conductor",
+                            "instrument arranger"
+                        ],
+                        "Christopher Wolstenholme": [
+                            "vocal",
+                            "bass guitar"
+                        ],
+                        "Rich Costey": [
+                            "mix",
+                            "recording",
+                            "producer"
+                        ],
+                        "Matt Bellamy": [
+                            "vocal",
+                            "keyboard",
+                            "guitar"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "a528ba1a-564f-42da-9953-01f7db07e881"
+                    }
+                },
+                "position": "09",
+                "title": "City of Delusion",
+                "ids": {
+                    "musicbrainz": "76d6c763-eeb9-371e-a249-a25b6e612a0c"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 288,
+                        "nanos": 866000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Edoardo de Angelis": [
+                            "violin"
+                        ],
+                        "Audrey Riley": [
+                            "instrument arranger",
+                            "conductor"
+                        ],
+                        "Dominic Howard": [
+                            "drums (drum set)",
+                            "percussion"
+                        ],
+                        "Matt Bellamy": [
+                            "guitar",
+                            "keyboard",
+                            "vocal"
+                        ],
+                        "Around Art": [
+                            "strings"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Christopher Wolstenholme": [
+                            "bass guitar",
+                            "vocal"
+                        ],
+                        "Rich Costey": [
+                            "mix",
+                            "producer",
+                            "recording"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "14b6ae5a-3ae4-42a4-99b7-139f347b600b"
+                    }
+                },
+                "position": "10",
+                "title": "Hoodoo",
+                "ids": {
+                    "musicbrainz": "80b20ec3-2fcd-3024-9b7d-f7cdc22a2584"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 223,
+                        "nanos": 373000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "roles": {
+                        "Marco Brioschi": [
+                            "trumpet"
+                        ],
+                        "Claudius Mittendorfer": [
+                            "recording"
+                        ],
+                        "Rich Costey": [
+                            "mix",
+                            "producer",
+                            "recording"
+                        ],
+                        "Dominic Howard": [
+                            "percussion",
+                            "drums (drum set)"
+                        ],
+                        "Muse": [
+                            "producer"
+                        ],
+                        "Matt Bellamy": [
+                            "vocal",
+                            "guitar",
+                            "keyboard"
+                        ],
+                        "Christopher Wolstenholme": [
+                            "vocal",
+                            "bass guitar"
+                        ]
+                    },
+                    "genres": [
+                        "alternative rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "a28635ae-0520-401c-be53-20f4846f0113"
+                    }
+                },
+                "position": "11",
+                "title": "Knights of Cydonia",
+                "ids": {
+                    "musicbrainz": "27e63ba4-eb56-3b23-b0ab-cf08f96fd126"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 366,
+                        "nanos": 800000000
+                    }
+                }
+            },
+            {
+                "disc_num": 1,
+                "record": {
+                    "genres": [
+                        "alternative rock",
+                        "progressive rock"
+                    ],
+                    "ids": {
+                        "musicbrainz": "6dda7daf-4473-4fe1-97a4-e4a9943546be"
+                    }
+                },
+                "position": "12",
+                "title": "Glorious",
+                "ids": {
+                    "musicbrainz": "68170927-6801-3f29-a461-c90a007943aa"
+                },
+                "ainfo": {
+                    "duration": {
+                        "secs": 281,
+                        "nanos": 26000000
+                    }
+                }
+            }
+        ],
+        "publishing": [
+            {
+                "year": 2006
+            },
+            {
+                "labels": [
+                    {
+                        "name": "Warner Bros. Records",
+                        "ids": {
+                            "musicbrainz": "c595c289-47ce-4fba-b999-b87503e8cb71"
+                        },
+                        "catnos": [
+                            "12345"
+                        ],
+                        "notes": [
+                            "test_notes"
+                        ]
+                    }
+                ],
+                "countries": [
+                    "XW"
+                ],
+                "notes": [
+                    "test_notes"
+                ],
+                "year": 2009
+            }
+        ],
+        "genres": [
+            "rock"
+        ],
+        "release_status": "Official",
+        "release_type": "test",
+        "release_repeat": "test",
+        "release_remake": "test",
+        "release_origin": "test",
+        "actors": {
+            "Dominic Howard": {
+                "musicbrainz": "3144bf1e-4033-4de0-900f-a59726a9681f"
+            },
+            "Tom Kirk": {
+                "musicbrainz": "49a3d1d8-a5b6-4a99-9c38-101e302dff0a"
+            },
+            "Mauro Pagani": {
+                "musicbrainz": "9edcf61f-7b06-4b50-9af0-47e03abe2912"
+            },
+            "Marco Brioschi": {
+                "musicbrainz": "d4393bfa-7ed5-49df-b637-0796d443ad90"
+            },
+            "Edoardo de Angelis": {
+                "musicbrainz": "e97f62f2-7f85-4773-9e01-adb071820822"
+            },
+            "Matt Bellamy": {
+                "musicbrainz": "00fc124e-6645-4530-8d0b-7def83c5ee25"
+            },
+            "Rich Costey": {
+                "musicbrainz": "d7e7825f-cb30-4c56-a7c8-e0fae10f93f8"
+            },
+            "Christopher Wolstenholme": {
+                "musicbrainz": "a9e11992-57f5-4a9b-b59f-a6f5e2a2060c"
+            },
+            "Around Art": {
+                "musicbrainz": "8b40304c-d5fe-40d3-aa23-4afaaa73f480"
+            },
+            "Muse": {
+                "musicbrainz": "9c9f1380-2516-4fc9-a3e6-f9f61941d090"
+            },
+            "Claudius Mittendorfer": {
+                "musicbrainz": "01b0461c-6f7d-4a95-9ab4-3bd7ebcba1d5"
+            },
+            "Mark Rinaldi": {
+                "musicbrainz": "42d636cf-17b1-47bf-9250-705b2336781b"
+            },
+            "Audrey Riley": {
+                "musicbrainz": "cf58cc10-0145-48f5-9ac6-0f53183138fd"
+            }
+        },
+        "roles": {
+            "Muse": [
+                "performer"
+            ]
+        },
+        "ids": {
+            "musicbrainz": "aefcf53b-5980-463b-b03d-a6c8da6a9432",
+            "asin": "B002CNST10",
+            "musicbrainz_releasegroup": "af2e8e23-e9c3-4e67-8ad8-66387c5898fd",
+            "barcode": "825646911486"
+        },
+        "notes": [
+            "test"
+        ],
+        "pictures": [
+            {
+                "md": {
+                    "color_depth": 16,
+                    "colors": 23000,
+                    "mime": "image/jpeg",
+                    "height": 500,
+                    "width": 500
+                },
+                "notes": [
+                    "some notes"
+                ],
+                "pict_type": "cover_front",
+                "url": "http://mysite/1.gif"
+            }
+        ],
+        "unprocessed": {
+            "test": "unprocessed"
+        }
+    },
+    "app": "musicbrainz",
+    "similarity": 0.8453846153846154
+}
