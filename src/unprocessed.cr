@@ -7,12 +7,9 @@ alias Unprocessed = Hash(TagName, TagVal)
 # Аггрегирующий набор необработанных тэгов с частотой их появления.
 class FreqUnprocessed
   include Enumerable({Tuple(TagName, TagVal), Int32})
-
-  def initialize
-    @storage = Hash(Tuple(TagName, TagVal), Int32).new
-  end
-
   delegate :each, to: @storage
+
+  def initialize(@storage = {} of Tuple(TagName, TagVal) => Int32); end
 
   def with_frequency(freq : Int32) : Unprocessed
     Unprocessed.new.tap do |result|

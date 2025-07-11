@@ -1,6 +1,7 @@
 require "json"
 
-require "./utils"
+require "./json"
+require "./note"
 
 # Тип внедренного в файл трека изображения.
 enum PictType
@@ -34,9 +35,10 @@ end
 json_serializable_enum PictType
 
 # Общие метаданные изображения.
-class PictureMetadata
+struct PictureMetadata
   include JSON::Serializable
-  property mime, width, height, color_depth, colors
+
+  property colors, color_depth, height, mime, width
 
   def initialize
     @mime = ""
@@ -59,25 +61,27 @@ end
 # Внедренное в файл трека изображение.
 class PictureInAudio
   include JSON::Serializable
-  property md, notes, url
-  getter pict_type : PictType
 
-  @[JSON::Field(ignore: true)] # Полностью исключаем из JSON
-  property data : Slice(UInt8) = Slice(UInt8).empty
+  @[JSON::Field(ignore: true)]
+  property data = Bytes.empty
+  property md = PictureMetadata.new
+  property notes = Notes.new
+  property pict_type = PictType::UNKNOWN
+  property url = ""
 
-  def initialize(@pict_type : PictType)
-    @md = PictureMetadata.new
-    @notes = Set(String).new
-    @url = ""
-  end
+  def initialize(@pict_type : PictType); end
 end
 
 class PicturesInAudio
   include JSON::Serializable
   include Enumerable(PictureInAudio)
-  delegate :[], :<<, :each, :size, to: @pictures
+  delegate :[], :<<, :each, :size, :to_json, to: @pictures
 
-  def initialize
-    @pictures = Array(PictureInAudio).new
+  def initialize(@pictures = [] of PictureInAudio); end
+
+  def self.new(pull : JSON::PullParser)
+    new.tap do |pictures|
+      pull.read_array { pictures << PictureInAudio.new(pull) }
+    end
   end
 end

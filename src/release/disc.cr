@@ -1,6 +1,6 @@
 require "json"
 
-require "../utils"
+require "../json"
 
 alias DiscID = String
 
@@ -9,19 +9,6 @@ enum DiscIdType
   DISC_ID
   MUSICBRAINZ
   DISCOGS
-end
-
-json_serializable_enum DiscIdType
-
-class DiscIDs
-  include JSON::Serializable
-  include Enumerable({DiscIdType, DiscID})
-
-  def initialize
-    @discs = Hash(DiscIdType, DiscID).new
-  end
-
-  delegate :[], :[]=, :each, :size, :empty?, :has_key?, :fetch, to: @discs
 end
 
 # Тип носителя аудиоданных релиза.
@@ -33,33 +20,46 @@ enum Media
   REEL
   LP
 
-  def self.from_str(s : String) : Media
+  def self.new(s : String) : self # TODO: переименовать в `parse`
     case s.to_down
-    when "lp", "vinyl"
-      Media::LP
-    when "sacd"
-      Media::SACD
-    when "cd"
-      Media::CD
+    when "lp", "vinyl" then Media::LP
+    when "sacd"        then Media::SACD
+    when "cd"          then Media::CD
     when "digital", "[tr24][of]", "[tr24][sm][of]", "[dsd][of]", "[dxd][of]", "[dvda][of]"
       Media::DIGITAL
-    when "reel"
-      Media::REEL
+    when "reel" then Media::REEL
     else
       Media::UNKNOWN
     end
   end
 end
 
-json_serializable_enum Media
+json_serializable_enum DiscIdType, Media
+
+class DiscIDs
+  include JSON::Serializable
+  include Enumerable({DiscIdType, DiscID})
+  delegate :[], :[]=, :each, :size, :empty?, :has_key?, :fetch, :to_json, to: @discs
+
+  def initialize(@discs = {} of DiscIdType => DiscID); end
+
+  def initialize(pull : JSON::PullParser)
+    @discs = {} of DiscIdType => DiscID
+    pull.read_object do |key|
+      id_type = DiscIdType.parse(key)
+      @discs[id_type] = pull.read_string
+    end
+  end
+end
 
 class DiscFormat
   include JSON::Serializable
+
   property attrs, media
 
   def initialize
     @media = Media::UNKNOWN
-    @attrs = Array(String).new
+    @attrs = [] of String
   end
 
   def has_attr(attr : String) : Bool
@@ -78,13 +78,13 @@ end
 # Свойства диска. Сам номер диска указывается в объекте `Track`.
 class Disc
   include JSON::Serializable
+
   property fmt, ids, num, title
+  @fmt = DiscFormat.new
+  @ids = DiscIDs.new
+  @title = ""
 
   def initialize(@num : Int32 = 1)
-    @fmt = DiscFormat.new
-    # - "id" - код диска, установленный производителем
-    @ids = DiscIDs.new
-    @title = ""
   end
 
   def compare(other : self) : Float64
@@ -108,15 +108,18 @@ end
 class Discs
   include JSON::Serializable
   include Enumerable(Disc)
-  @[JSON::Field(key: "discs")]
-  property discs : Array(Disc)
+  delegate :[], :each, :size, to_json, to: @discs
 
   def initialize
-    @discs = Array(Disc).new
+    @discs = [] of Disc
     @total = 0
   end
 
-  delegate :[], :each, :size, to: @discs
+  def self.new(pull : JSON::PullParser)
+    new.tap do |discs|
+      pull.read_array { discs << Disc.new(pull) }
+    end
+  end
 
   def compare(other : self) : Float64
     return 0.0 if @discs.empty? || other.empty?
@@ -137,11 +140,11 @@ class Discs
 
   # Добавляет диск в коллекцию, если он не существует. Иначе дополняет его свойства.
   def <<(disc : Disc)
-    d_ = find_by_num(disc.num)
-    if d_.nil?
+    d = find_by_num(disc.num)
+    if d.nil?
       @discs << disc
     else
-      d_.merge_with(disc)
+      d.merge_with(disc)
     end
   end
 end

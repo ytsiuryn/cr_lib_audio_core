@@ -8,14 +8,13 @@ alias CatNo = String
 
 class Label
   include JSON::Serializable
-  property catnos
-  getter name : String, catnos : Set(CatNo), ids : IDs, notes : Notes
 
-  def initialize(@name : String = "")
-    @catnos = Set(CatNo).new
-    @ids = IDs.new
-    @notes = Notes.new
-  end
+  property catnos = Set(CatNo).new
+  property ids = IDs.new
+  property name = ""
+  property notes = Notes.new
+
+  def initialize(@name : String = ""); end
 
   def merge_with(other : self)
     other.catnos.each { |catno| @catnos << catno }
@@ -27,27 +26,35 @@ end
 class Labels
   include JSON::Serializable
   include Enumerable(Label)
-  delegate :[], :<<, :each, :size, to: @lbs
+  delegate :[], :<<, :each, :size, :to_json, to: @labels
 
-  def initialize
-    @lbs = Array(Label).new
+  def initialize(@labels = [] of Label); end
+
+  def self.new(pull : JSON::PullParser)
+    new.tap do |labels|
+      pull.read_array { labels << Label.new(pull) }
+    end
   end
 
   def has_label(nm : String) : Bool
-    @lbs.any? { |lbl| lbl.name == nm }
+    @labels.any? { |lbl| lbl.name == nm }
   end
 end
 
 # Сведения об издании релиза.
 # Релиз характеризуется годов выпуска и может распространяться в нескольких странах
 # под разными лейбами.
-class Publishing
+class Issue
   include JSON::Serializable
-  property countries, labels, notes, year
+
+  property countries = [] of String
+  property labels = Labels.new
+  property notes = Notes.new
+  property year = 0
 
   def initialize
     @labels = Labels.new
-    @countries = Array(String).new
+    @countries = [] of String
     @year = 0
     @notes = Notes.new
   end
@@ -106,12 +113,45 @@ class Publishing
   end
 end
 
-class Publishings
+class Issues
   include JSON::Serializable
-  include Enumerable(Publishing)
-  delegate :each, :size, to: @pubs
+  include Enumerable(Issue)
+  delegate :<<, :[]=, :each, :size, :to_json, to: @pubs
 
   def initialize
-    @pubs = Array(Publishing).new
+    # [0] - исходное издание, [1] - данное издание
+    @pubs = Array(Issue).new(2) { Issue.new }
+  end
+
+  def self.new(pull : JSON::PullParser)
+    Issues.new.tap do |issues|
+      i = 0
+      pull.read_array do
+        if i < issues.size
+          issues[i] = Issue.new(pull)
+        else
+          issues << Issue.new(pull)
+        end
+        i += 1
+      end
+    end
+  end
+
+  # Сведения об актуальном издании альбома.
+  def actual : Issue
+    @pubs[1]
+  end
+
+  def actual=(p : Issue)
+    @pubs[1] = p
+  end
+
+  # Сведения о предыдущем или исходном издании альбома.
+  def ancestor : Issue
+    @pubs[0]
+  end
+
+  def ancestor(p : Issue)
+    @pubs[0] = p
   end
 end

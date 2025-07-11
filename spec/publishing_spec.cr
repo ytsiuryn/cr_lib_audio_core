@@ -2,12 +2,12 @@ require "spec"
 
 require "../src/release/publishing"
 
-describe Publishing do
+describe Issue do
   it "#compare" do
-    p = Publishing.new
+    p = Issue.new
     p.add_label(Label.new("Analog Audio"))
-    p.compare(Publishing.new).should eq 0.0
-    p2 = Publishing.new
+    p.compare(Issue.new).should eq 0.0
+    p2 = Issue.new
     p2.add_label(Label.new("Analog Audio"))
     p.compare(p2).should eq 0.99
     p.labels[0].catnos << "12345"
@@ -16,11 +16,11 @@ describe Publishing do
   end
 
   it "#add_label" do
-    p = Publishing.new
+    p = Issue.new
     p.add_label(Label.new("test"))
     l2 = Label.new("test")
     l2.ids[OnlineDB::DISCOGS] = "12345"
-    l2.notes.add("test notes")
+    l2.notes << "test notes"
     p.add_label(l2)
     p.labels.size.should eq 1
     p.labels[0].ids.size.should eq 1
@@ -28,7 +28,7 @@ describe Publishing do
   end
 
   it "all catnos" do
-    p = Publishing.new
+    p = Issue.new
     l1 = Label.new("name1")
     l1.catnos << "11"
     l1.catnos << "111"
@@ -41,14 +41,14 @@ describe Publishing do
   end
 
   it "#has_label" do
-    p = Publishing.new
+    p = Issue.new
     p.has_label("test").should_not be_true
     p.add_label(Label.new("test"))
     p.has_label("test").should be_true
   end
 
   it "#empty?" do
-    p = Publishing.new
+    p = Issue.new
     p.empty?.should be_true
     p.add_label(Label.new("test"))
     p.empty?.should_not be_true

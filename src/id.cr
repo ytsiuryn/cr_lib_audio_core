@@ -1,6 +1,6 @@
 require "json"
 
-require "./utils"
+require "./json"
 
 alias OnlineID = String
 
@@ -16,9 +16,16 @@ json_serializable_enum OnlineDB
 class IDs
   include JSON::Serializable
   include Enumerable({OnlineDB, OnlineID})
-  delegate :[], :[]=, :each, :size, :empty?, :has_key?, to: @ids
+  delegate :[], :[]=, :each, :size, :empty?, :has_key?, :to_json, to: @ids
 
-  def initialize
-    @ids = Hash(OnlineDB, OnlineID).new
+  def initialize(@ids = {} of OnlineDB => OnlineID); end
+
+  def self.new(pull : JSON::PullParser)
+    new.tap do |ids|
+      pull.read_object do |key|
+        db = OnlineDB.parse(key)
+        ids[db] = pull.read_string
+      end
+    end
   end
 end

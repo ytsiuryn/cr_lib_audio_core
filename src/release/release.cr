@@ -1,13 +1,14 @@
 require "json"
+require "levenshtein"
 
 require "../actor"
 require "./disc"
+require "../genre"
 require "../id"
 require "../mood"
 require "../note"
 require "../picture"
 require "./publishing"
-# require .record import FreqGenres
 require "./props"
 require "../track"
 require "../unprocessed"
@@ -31,42 +32,44 @@ alias ReleaseID = String
 class ReleaseIDs
   include JSON::Serializable
   include Enumerable({ReleaseIdType, ReleaseID})
-  delegate :[], :[]=, :each, :size, :empty?, :has_key?, to: @ids
+  delegate :[], :[]=, :each, :size, :empty?, :has_key?, :to_json, to: @ids
 
-  def initialize
-    @ids = Hash(ReleaseIdType, ReleaseID).new
+  def initialize(@ids = {} of ReleaseIdType => ReleaseID); end
+
+  def self.new(pull : JSON::PullParser)
+    new.tap do |ids|
+      pull.read_object do |key|
+        id_type = ReleaseIdType.parse(key)
+        ids[id_type] = pull.read_string
+      end
+    end
   end
 end
 
 # Происхождение и физическое представление альбома.
 class Release
   include JSON::Serializable
-  property discs, genres, ids, notes, pictures, publishing,
-    release_status, release_type, release_repeat, release_remake, release_origin,
-    roles, title, total_discs, total_tracks, tracks, unprocessed
-  getter actors : ActorIDs
 
-  def initialize
-    @title = ""
-    @discs = Discs.new
-    @total_discs = 1
-    @tracks = Tracks.new
-    @total_tracks = 0
-    # [0] - исходное издание, [1] - данное издание
-    @publishing = [Publishing.new, Publishing.new]
-    @genres = Set(String).new
-    @release_status = ReleaseStatus::UNKNOWN
-    @release_type = ReleaseType::ALBUM
-    @release_repeat = ReleaseRepeat::UNKNOWN
-    @release_remake = ReleaseRemake::UNKNOWN
-    @release_origin = ReleaseOrigin::UNKNOWN
-    @pictures = PicturesInAudio.new
-    @actors = ActorIDs.new
-    @roles = Roles.new
-    @ids = ReleaseIDs.new
-    @notes = Notes.new
-    @unprocessed = Unprocessed.new
-  end
+  property discs = Discs.new
+  property issues = Issues.new
+  property genres = Set(String).new
+  property ids = ReleaseIDs.new
+  property notes = Notes.new
+  property origin = ReleaseOrigin::UNKNOWN
+  property pictures = PicturesInAudio.new
+  property remake = ReleaseRemake::UNKNOWN
+  property repeat = ReleaseRepeat::UNKNOWN
+  property status = ReleaseStatus::UNKNOWN
+  property title = ""
+  property total_discs = 0
+  property total_tracks = 0
+  property tracks = Tracks.new
+  property type = ReleaseType::ALBUM
+  property unprocessed = Unprocessed.new
+  getter actors = ActorIDs.new
+  getter roles = Roles.new
+
+  def initialize; end
 
   # Сравнивает два объекта Release по важным метаданным.
   # Если номера каталогов изданий совпадают, объекты считаются идентичными без учета др. данных.
@@ -75,7 +78,7 @@ class Release
     @tracks.calc_indexes
     lbl = pub_compare(other)
     return 1.0 if lbl == 1.0
-    t = levenshtein_distance(self.title, other.title) / 100
+    t = Levenshtein.distance(self.title, other.title) / 100
     return 0.0 if t == 0.0
     p = performers_compare(other)
     tr = @total_tracks != other.total_tracks ? 0.0 : @tracks.compare(other.tracks)
@@ -94,7 +97,7 @@ class Release
 
   # Добавить роль для актора релиза.
   def add_role(actor : String, role : String = "performer")
-    @roles.add_role(actor, role)
+    @roles.add(actor, role)
   end
 
   def aggregate_actors
@@ -113,10 +116,10 @@ class Release
     # Однопроходная обработка
     counter.each do |(actor, role), count|
       if count == tracks_count
-        @roles.add_role(actor, role)
+        add_role(actor, role)
         @tracks.each do |track|
-          track.record.roles.del_role(actor, role)
-          track.composition.roles.del_role(actor, role)
+          track.record.roles.delete(actor, role)
+          track.composition.roles.delete(actor, role)
         end
       end
     end
@@ -161,18 +164,18 @@ class Release
     (!@title.empty? ? 0.4 : 0.0) +
       (@roles.performers.size > 0 ? 0.2 : 0.0) +
       (@tracks.size > 0 ? 0.2 : 0.0) +
-      (@publishing[1].labels.size > 0 ? 0.1 : 0.0) +
+      (@issues.actual.labels.size > 0 ? 0.1 : 0.0) +
       (@discs.size > 0 ? 0.1 : 0.0)
   end
 
   # Список настроений релиза из треков.
   def moods : Moods
-    Moods.new(@tracks.flat_map(&.record.moods.to_a))
+    Moods.new(@tracks.flat_map(&.moods.to_a))
   end
 
   # Определение наличия обязательных атрибутов.
   def no_mandatory_fields : Bool
-    @title.empty? || @roles.performers.empty? || @tracks.empty? || @publishing[1].labels.empty?
+    @title.empty? || @roles.performers.empty? || @tracks.empty? || @issues.actual.labels.empty?
   end
 
   # Паменьшэнне займаемых абъектамі метаданных абъема памяці за кошт аггрэгацыі
@@ -199,25 +202,15 @@ class Release
   end
 
   def pub_compare(other : self) : Float64
-    return 0.0 if @publishing[1].labels.empty? || other.publishing[1].labels.empty?
+    return 0.0 if @issues.actual.labels.empty? || other.issues.actual.labels.empty?
     ret = 0.0
-    @publishing.each do |publ|
-      other.publishing.each do |publ2|
+    @issues.each do |publ|
+      other.issues.each do |publ2|
         res = publ.compare(publ2)
         return 1.0 if res == 1.0
         ret = Math.max(ret, res)
       end
     end
     ret
-  end
-
-  # Сведения об актуальном издании альбома.
-  def pub : Publishing
-    @publishing[1]
-  end
-
-  # Сведения о предыдущем или исходном издании альбома.
-  def pub_ancestor : Publishing
-    @publishing[0]
   end
 end

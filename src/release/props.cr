@@ -1,4 +1,4 @@
-require "../utils"
+require "../json"
 
 # Статус релиза.
 enum ReleaseStatus

@@ -5,8 +5,15 @@ require "../src/track"
 
 # TODO: Add tracks' compare test
 
-describe "Track Functions" do
-  it "#disc_number_by_track_pos" do
+describe FileInfo do
+  it "#empty?" do
+    FileInfo.new.empty?.should be_true
+    FileInfo.new(fsize: 100500).empty?.should be_false
+  end
+end
+
+describe Track do
+  it "#Track.disc_number_by_track_pos" do
     results = {
       "A1"    => 1,
       "A.1"   => 1,
@@ -20,43 +27,18 @@ describe "Track Functions" do
       "3 - 1" => 3,
       "Б1"    => 1,
     }
-    results.each { |k, v| disc_num_by_track_pos(k).should eq v }
+    results.each { |k, v| Track.disc_num_by_track_pos(k).should eq v }
   end
 
-  it "#disc_track_num_from_pos" do
+  it "#Track.disc_track_num_from_pos" do
     expect_raises(Exception, "Incorrect track position") do
-      disc_track_num_from_pos("A1")
+      Track.disc_track_num_from_pos("A1")
     end
   end
 
   it "#normalize_position" do
-    normalize_pos("1").should eq "01"
-    normalize_pos("01").should eq "01"
-  end
-end
-
-describe FileInfo do
-  it "#empty?" do
-    fi = FileInfo.new
-    fi.empty?.should be_true
-    fi.fsize = 100500
-    fi.empty?.should be_false
-  end
-end
-
-describe Track do
-  it "#duration_from_str" do # TODO: следует перенести в audio_spec.cr
-    t = Track.new
-    t.ainfo.duration_from_str("2022-11-05").should be_false
-    t.ainfo.duration_from_str("00:01:25").should be_true
-    t.ainfo.duration.total_seconds.should eq 85
-  end
-
-  it "#set_position" do
-    t = Track.new
-    t.position = "E1"
-    disc_num_by_track_pos("E1").should eq 3
-    t.position.should eq "E1"
+    Track.normalize_pos("1").should eq "01"
+    Track.normalize_pos("01").should eq "01"
   end
 end
 
@@ -77,10 +59,10 @@ describe Tracks do
   it "#last_modified" do
     ts = Tracks.new
     t = Track.new("01")
-    t.finfo.mtime = 100500
+    t.finfo = FileInfo.new(mtime: 100500)
     ts << t
     t2 = Track.new("02")
-    t2.finfo.mtime = 100400
+    t2.finfo = FileInfo.new(mtime: 100400)
     ts << t2
     ts.last_modified.should eq 100500
   end

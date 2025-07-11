@@ -10,7 +10,7 @@
                         "Digital",
                         "Media"
                     ],
-                    "media": "Digital"
+                    "media": "CD"
                 },
                 "ids": {
                     "disc_id": "12345"
@@ -110,10 +110,7 @@
                     "channels": 2,
                     "samplerate": 44100,
                     "samplesize": 16,
-                    "duration": {
-                        "secs": 275,
-                        "nanos": 466000000
-                    }
+                    "duration": 275000
                 },
                 "finfo": {
                     "fname": "test_track_name",
@@ -166,10 +163,7 @@
                     "musicbrainz": "fb3e08e3-0c61-324b-a3bb-5c433751bdf4"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 239,
-                        "nanos": 800000000
-                    }
+                    "duration": 239000
                 }
             },
             {
@@ -214,10 +208,7 @@
                     "musicbrainz": "39508dc3-a70b-3211-b24f-c16b7ae74437"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 209,
-                        "nanos": 360000000
-                    }
+                    "duration": 209000
                 }
             },
             {
@@ -262,10 +253,7 @@
                     "musicbrainz": "97387cba-360b-39bf-a27f-fec799e68487"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 258,
-                        "nanos": 839000000
-                    }
+                    "duration": 258000
                 }
             },
             {
@@ -310,10 +298,7 @@
                     "musicbrainz": "bbec2b1d-6558-325a-8d82-2d884ebeec7f"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 123,
-                        "nanos": 893000000
-                    }
+                    "duration": 123000
                 }
             },
             {
@@ -358,10 +343,7 @@
                     "musicbrainz": "0f5706e3-81ca-3e11-9073-2f87d9d1f430"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 300,
-                        "nanos": 240000000
-                    }
+                    "duration": 300000
                 }
             },
             {
@@ -406,10 +388,7 @@
                     "musicbrainz": "68d84224-9853-312c-9518-25f88c4e98f3"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 211,
-                        "nanos": 133000000
-                    }
+                    "duration": 211000
                 }
             },
             {
@@ -457,10 +436,7 @@
                     "musicbrainz": "e791a838-32f3-3f50-b336-1b0030568679"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 233,
-                        "nanos": 226000000
-                    }
+                    "duration": 233000
                 }
             },
             {
@@ -518,10 +494,7 @@
                     "musicbrainz": "76d6c763-eeb9-371e-a249-a25b6e612a0c"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 288,
-                        "nanos": 866000000
-                    }
+                    "duration": 288000
                 }
             },
             {
@@ -576,10 +549,7 @@
                     "musicbrainz": "80b20ec3-2fcd-3024-9b7d-f7cdc22a2584"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 223,
-                        "nanos": 373000000
-                    }
+                    "duration": 223000
                 }
             },
             {
@@ -627,10 +597,7 @@
                     "musicbrainz": "27e63ba4-eb56-3b23-b0ab-cf08f96fd126"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 366,
-                        "nanos": 800000000
-                    }
+                    "duration": 366000
                 }
             },
             {
@@ -650,14 +617,11 @@
                     "musicbrainz": "68170927-6801-3f29-a461-c90a007943aa"
                 },
                 "ainfo": {
-                    "duration": {
-                        "secs": 281,
-                        "nanos": 26000000
-                    }
+                    "duration": 281000
                 }
             }
         ],
-        "publishing": [
+        "issues": [
             {
                 "year": 2006
             },
@@ -688,11 +652,11 @@
         "genres": [
             "rock"
         ],
-        "release_status": "Official",
-        "release_type": "test",
-        "release_repeat": "test",
-        "release_remake": "test",
-        "release_origin": "test",
+        "status": "Official",
+        "type": "Album",
+        "repeat": "Reissue",
+        "remake": "Remastered",
+        "origin": "Studio",
         "actors": {
             "Dominic Howard": {
                 "musicbrainz": "3144bf1e-4033-4de0-900f-a59726a9681f"

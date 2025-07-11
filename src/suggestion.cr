@@ -4,24 +4,21 @@ require "./id"
 # Используется внешними сервисами для хранения единичного результата.
 class Suggestion
   include JSON::Serializable
-  property app, r, similarity
 
-  def initialize
-    @r = Release.new
-    @app = OnlineDB::UNKNOWN
-    @similarity = 0.0
-  end
+  property similarity : Float64 = 0.0
+  property app = OnlineDB::UNKNOWN
+  property r = Release.new
+
+  def initialize; end
 end
 
 # Список предложений альбомов по результатам поиска во внешних БД.
 class Suggestions
   include JSON::Serializable
   include Enumerable(Suggestion)
-
-  def initialize(@sgs : Array(Suggestion) = [] of Suggestion)
-  end
-
   delegate :[], :<<, :each, :size, to: @sgs
+
+  def initialize(@sgs = [] of Suggestion); end
 
   # Оптимизирует релиз-данные для каждого результата и аггрегирует коды
   # акторов во внешних БД в поле Actors.

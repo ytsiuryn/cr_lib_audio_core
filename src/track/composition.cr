@@ -1,8 +1,9 @@
 require "json"
 
-require "./lyrics"
 require "../actor"
-require "../utils"
+require "../json"
+require "./lyrics"
+require "../note"
 
 enum CompositionIdType
   UNKNOWN0 # International Standard Work Code
@@ -18,29 +19,33 @@ alias CompositionID = String
 class CompositionIDs
   include JSON::Serializable
   include Enumerable({CompositionIdType, CompositionID})
+  delegate :[], :[]=, :each, :size, :empty?, :has_key?, :fetch, :to_json, to: @ids
 
-  def initialize
-    @storage = Hash(CompositionIdType, CompositionID).new
+  def initialize(@ids = {} of CompositionIdType => CompositionID); end
+
+  def initialize(pull : JSON::PullParser)
+    @ids = {} of CompositionIdType => CompositionID
+    pull.read_object do |key|
+      id_type = CompositionIdType.parse(key)
+      @ids[id_type] = pull.read_string
+    end
   end
-
-  # Делегируем основные методы Hash
-  delegate :[], :[]=, :each, :size, :empty?, :has_key?, :fetch, to: @storage
 end
 
 # Музыкальная композиция.
 class Composition
   include JSON::Serializable
-  property ids, lyrics, notes, roles
 
-  def initialize
-    @roles = Roles.new
-    @notes = Set(String).new
-    @lyrics = Lyrics.new
-    @ids = CompositionIDs.new
-  end
+  property ids, lyrics, notes, roles
+  @roles = Roles.new
+  @notes = Notes.new
+  @lyrics = Lyrics.new
+  @ids = CompositionIDs.new
+
+  def initialize; end
 
   def add_role(actor : String, role : String)
-    @roles.add_role(actor, role)
+    @roles.add(actor, role)
   end
 
   def empty? : Bool
@@ -49,10 +54,10 @@ class Composition
 
   # Установка значения ID внешней БД.
   #
-  # c = Composition()
-  # c.set_id("ISWC", "12345") # => <CompositionIdType.ISWC: 1>
-  # c.set_id("IS_WC", "12345") # => <CompositionIdType.UNKNOWN: 0>
-  def set_id(k : String, v : String) : CompositionIdType
+  # c = Composition.new
+  # c.add_id("ISWC", "12345") # => <CompositionIdType::ISWC: 1>
+  # c.add_id("IS_WC", "12345") # => <CompositionIdType::UNKNOWN: 0>
+  def add_id(k : String, v : String) : CompositionIdType
     id_type = CompositionIdType.parse?(k)
     if !is.nil?
       @ids[id_type] = v

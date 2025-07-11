@@ -49,7 +49,7 @@ describe Discs do
     ds[0].fmt.attrs.should contain("gatefold sleeve")
   end
 
-  it "discs compare" do
+  it "#compare" do
     ds = Discs.new
     ds2 = Discs.new
     ds.compare(ds2).should eq 0.0

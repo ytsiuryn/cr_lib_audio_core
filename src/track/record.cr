@@ -1,8 +1,10 @@
 require "json"
 
 require "../actor"
+require "../genre"
+require "../json"
 require "../mood"
-require "../utils"
+require "../note"
 
 enum RecordIdType
   UNKNOWN
@@ -14,54 +16,40 @@ end
 json_serializable_enum RecordIdType
 
 alias ID = String
-alias Genres = Set(String)
 
 class RecordIDs
   include JSON::Serializable
   include Enumerable({RecordIdType, ID})
+  delegate :[], :[]=, :each, :size, :empty?, :has_key?, :fetch, :to_json, to: @ids
 
-  def initialize(@ids = Hash(RecordIdType, ID).new)
+  property ids = {} of RecordIdType => ID
+
+  def initialize; end
+
+  def initialize(pull : JSON::PullParser)
+    pull.read_object do |key|
+      id_type = RecordIdType.parse(key)
+      @ids[id_type] = pull.read_string
+    end
   end
-
-  delegate :[], :[]=, :each, :size, :empty?, :has_key?, :fetch, to: @ids
 end
 
 # Сведения о записи композиции.
 class Record
   include JSON::Serializable
-  property genres, ids, moods, notes, roles
 
-  def initialize
-    @roles = Roles.new
-    @moods = Moods.new
-    @genres = Set(String).new
-    @ids = RecordIDs.new
-    @notes = Set(String).new
-  end
+  property ids, notes, roles
+  @roles = Roles.new
+  @ids = RecordIDs.new
+  @notes = Notes.new
+
+  def initialize; end
 
   def add_role(name : String, role : String)
-    @roles.add_role(name, role)
+    @roles.add(name, role)
   end
 
   def empty? : Bool
-    @roles.empty? && @moods.empty? && @genres.empty? && @ids.empty? && @notes.empty?
-  end
-end
-
-class FreqGenres
-  include Enumerable({String, Int32})
-
-  def initialize
-    @storage = Hash(String, Int32).new
-  end
-
-  delegate :each, to: @storage
-
-  def with_frequency(freq : Int32) : Array(String)
-    @storage.compact_map { |k, frequency| k if frequency == freq }
-  end
-
-  def merge(genres : Genres)
-    genres.each { |genre| @storage[genre] = @storage.fetch(genre, 0) + 1 }
+    @roles.empty? && @ids.empty? && @notes.empty?
   end
 end
