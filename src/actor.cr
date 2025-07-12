@@ -7,6 +7,7 @@ require "./json"
 alias Name = String
 alias Role = String
 
+# Сведения об акторе и его идентификаторах в online БД.
 class ActorIDs
   include Enumerable({String, IDs})
   delegate :[], :[]=, :each, :size, :empty?, :has_key?, :fetch, :to_json, to: @ids
@@ -23,6 +24,7 @@ class ActorIDs
   end
 end
 
+# Связь акторов с исполняемыми ролями.
 class Roles
   include JSON::Serializable
   include Enumerable({Name, Set(Role)})
@@ -71,12 +73,10 @@ class Roles
   end
 
   def delete(actor : Name, role : Role)
-    if @roles.has_key?(actor)
-      @roles[actor].delete(role)
-      if @roles[actor].empty?
-        @roles.delete(actor)
-      end
-    end
+    return unless @roles.has_key?(actor)
+    @roles[actor].delete(role)
+    return unless @roles[actor].empty?
+    @roles.delete(actor)
   end
 
   def performers : Roles

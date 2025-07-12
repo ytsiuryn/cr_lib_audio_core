@@ -6,6 +6,7 @@ require "../note"
 alias LabelName = String
 alias CatNo = String
 
+# Свойства торговой марки издания.
 class Label
   include JSON::Serializable
 
@@ -23,6 +24,7 @@ class Label
   end
 end
 
+# Перечень торговых марок.
 class Labels
   include JSON::Serializable
   include Enumerable(Label)
@@ -113,6 +115,7 @@ class Issue
   end
 end
 
+# Перечень изданий релиза.
 class Issues
   include JSON::Serializable
   include Enumerable(Issue)

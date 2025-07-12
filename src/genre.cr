@@ -18,6 +18,7 @@ module GenreParser
   end
 end
 
+# Расчет счетчиков по всем жанрам для дальнейшей аггрегации на уровень выше.
 class FreqGenres
   include Enumerable({String, Int32})
   delegate :each, to: @hash

@@ -6,6 +6,7 @@ require "../json"
 require "../mood"
 require "../note"
 
+# Перечень внешних БД для описания аудио записей.
 enum RecordIdType
   UNKNOWN
   ISRC # международный код записи
@@ -17,6 +18,7 @@ json_serializable_enum RecordIdType
 
 alias ID = String
 
+# Описание идентификаторов для записи во внешних БД.
 class RecordIDs
   include JSON::Serializable
   include Enumerable({RecordIdType, ID})

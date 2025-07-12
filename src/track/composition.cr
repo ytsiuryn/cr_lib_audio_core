@@ -5,6 +5,7 @@ require "../json"
 require "./lyrics"
 require "../note"
 
+# Перечень внешних БД для описания композиции.
 enum CompositionIdType
   UNKNOWN0 # International Standard Work Code
   ISWC     # International Standard Audiovisual Number
@@ -16,6 +17,7 @@ json_serializable_enum CompositionIdType
 
 alias CompositionID = String
 
+# Описание идентификаторов для композиции во внешних БД.
 class CompositionIDs
   include JSON::Serializable
   include Enumerable({CompositionIdType, CompositionID})

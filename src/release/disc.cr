@@ -4,6 +4,7 @@ require "../json"
 
 alias DiscID = String
 
+# Перечень внешних БД для описания диска.
 enum DiscIdType
   UNKNOWN
   DISC_ID
@@ -36,6 +37,7 @@ end
 
 json_serializable_enum DiscIdType, Media
 
+# Описание диска во внешних БД.
 class DiscIDs
   include JSON::Serializable
   include Enumerable({DiscIdType, DiscID})
@@ -52,6 +54,7 @@ class DiscIDs
   end
 end
 
+# Формат диска и прочие свойства.
 class DiscFormat
   include JSON::Serializable
 
@@ -105,6 +108,7 @@ class Disc
   end
 end
 
+# Перечень дисков релиза.
 class Discs
   include JSON::Serializable
   include Enumerable(Disc)

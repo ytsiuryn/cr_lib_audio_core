@@ -9,7 +9,7 @@ describe "Suggestion JSON Serialization/Deserialization" do
 
     # Проверка полей Suggestion
     suggestion.app.should eq OnlineDB::MUSICBRAINZ
-    suggestion.similarity.should eq 0.8453846153846154
+    suggestion.similarity.should eq 0.845_384_615_384_615_4
 
     # Проверка вложенного Release
     release = suggestion.r
@@ -39,7 +39,7 @@ describe "Suggestion JSON Serialization/Deserialization" do
     track = release.tracks[0]
     track.position.should eq "01"
     track.title.should eq "Take a Bow"
-    track.ainfo.duration.should eq 275000
+    track.ainfo.duration.should eq 275_000
     track.record.ids[RecordIdType::MUSICBRAINZ].should eq "cccc851d-9214-4d24-9df6-e45f62664dbc"
 
     # Проверка publishing
@@ -79,7 +79,7 @@ describe "Suggestion JSON Serialization/Deserialization" do
     # Создаем тестовый объект Suggestion
     suggestion = Suggestion.new
     suggestion.app = OnlineDB::MUSICBRAINZ
-    suggestion.similarity = 0.8453846153846154
+    suggestion.similarity = 0.845_384_615_384_615_4
 
     # Заполняем вложенный Release
     release = suggestion.r
@@ -95,7 +95,7 @@ describe "Suggestion JSON Serialization/Deserialization" do
     # Добавляем трек
     track = Track.new("01", 0)
     track.title = "Track Title"
-    track.ainfo = AudioInfo.new(duration: 237000)
+    track.ainfo = AudioInfo.new(duration: 237_000)
     track.record.ids[RecordIdType::ISRC] = "USABC1234567"
     release.tracks << track
 

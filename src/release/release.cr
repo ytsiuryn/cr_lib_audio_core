@@ -13,6 +13,7 @@ require "./props"
 require "../track"
 require "../unprocessed"
 
+# Перечень внешних БД для описания релиза.
 enum ReleaseIdType
   UNKNOWN
   BARCODE # Amazon Standard Identification Number
@@ -29,6 +30,7 @@ json_serializable_enum ReleaseIdType
 
 alias ReleaseID = String
 
+# Описание релиза во внешних БД.
 class ReleaseIDs
   include JSON::Serializable
   include Enumerable({ReleaseIdType, ReleaseID})

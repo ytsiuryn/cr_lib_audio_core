@@ -72,6 +72,7 @@ class PictureInAudio
   def initialize(@pict_type : PictType); end
 end
 
+# Свойства изображения для аудио (альбомы, исполнители, ...)
 class PicturesInAudio
   include JSON::Serializable
   include Enumerable(PictureInAudio)

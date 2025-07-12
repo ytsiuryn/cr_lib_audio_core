@@ -8,7 +8,7 @@ require "../src/track"
 describe FileInfo do
   it "#empty?" do
     FileInfo.new.empty?.should be_true
-    FileInfo.new(fsize: 100500).empty?.should be_false
+    FileInfo.new(fsize: 100_500).empty?.should be_false
   end
 end
 
@@ -59,12 +59,12 @@ describe Tracks do
   it "#last_modified" do
     ts = Tracks.new
     t = Track.new("01")
-    t.finfo = FileInfo.new(mtime: 100500)
+    t.finfo = FileInfo.new(mtime: 100_500)
     ts << t
     t2 = Track.new("02")
-    t2.finfo = FileInfo.new(mtime: 100400)
+    t2.finfo = FileInfo.new(mtime: 100_400)
     ts << t2
-    ts.last_modified.should eq 100500
+    ts.last_modified.should eq 100_500
   end
 
   it "#track" do

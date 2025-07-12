@@ -13,6 +13,7 @@ end
 
 json_serializable_enum OnlineDB
 
+# Идентификаторы во внешних БД.
 class IDs
   include JSON::Serializable
   include Enumerable({OnlineDB, OnlineID})
