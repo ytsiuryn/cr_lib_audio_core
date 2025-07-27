@@ -10,6 +10,8 @@ record AudioInfo,
   duration : Int64 = 0 do # в ms
   include JSON::Serializable
 
+  property avg_bitrate
+
   # Преобразование из строки вида 'HH:MM:SS'
   # Возвращает `true` в случае успеха преобразования.
   def duration_from_str=(s : String)

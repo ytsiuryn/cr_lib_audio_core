@@ -1,6 +1,5 @@
 require "spec"
-
-require "../src/track/audio"
+require "../src/core/track/audio"
 
 describe AudioInfo do
   it "#duration_from_str=" do

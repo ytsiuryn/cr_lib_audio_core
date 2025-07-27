@@ -1,6 +1,5 @@
 require "json"
 require "levenshtein"
-
 require "../actor"
 require "./disc"
 require "../genre"

@@ -1,7 +1,6 @@
 require "spec"
 require "json"
-
-require "../src/suggestion"
+require "../src/core/suggestion"
 
 describe "Suggestion JSON Serialization/Deserialization" do
   it "correctly deserializes Suggestion from JSON" do

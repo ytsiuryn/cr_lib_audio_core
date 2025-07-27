@@ -1,7 +1,6 @@
 require "log"
 require "spec"
-
-require "../src/track"
+require "../src/core/track"
 
 # TODO: Add tracks' compare test
 

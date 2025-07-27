@@ -1,5 +1,4 @@
 require "json"
-
 require "../actor"
 require "../json"
 require "./lyrics"

@@ -1,8 +1,7 @@
 require "spec"
-
-require "../src/id"
-require "../src/release"
-require "../src/suggestion"
+require "../src/core/id"
+require "../src/core/release"
+require "../src/core/suggestion"
 
 describe Suggestions do
   it "#shrink_for_bigger_score" do

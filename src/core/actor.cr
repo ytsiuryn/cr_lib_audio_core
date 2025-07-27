@@ -1,6 +1,5 @@
 require "json"
 require "levenshtein"
-
 require "./id"
 require "./json"
 

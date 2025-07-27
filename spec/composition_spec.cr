@@ -1,6 +1,5 @@
 require "spec"
-
-require "../src/track/composition"
+require "../src/core/track/composition"
 
 describe Composition do
   it "#empty?" do

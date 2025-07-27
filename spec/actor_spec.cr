@@ -1,6 +1,5 @@
 require "spec"
-
-require "../src/actor"
+require "../src/core/actor"
 
 describe ActorIDs do
 end

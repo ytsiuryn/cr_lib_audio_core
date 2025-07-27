@@ -1,11 +1,10 @@
 require "spec"
-
-require "../src/mood"
-require "../src/picture"
-require "../src/release"
-require "../src/release/disc"
-require "../src/release/publishing"
-require "../src/track"
+require "../src/core/mood"
+require "../src/core/picture"
+require "../src/core/release"
+require "../src/core/release/disc"
+require "../src/core/release/publishing"
+require "../src/core/track"
 
 describe Release do
   it "#add_actor" do

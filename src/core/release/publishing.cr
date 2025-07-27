@@ -1,5 +1,4 @@
 require "json"
-
 require "../id"
 require "../note"
 

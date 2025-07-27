@@ -1,6 +1,5 @@
 require "spec"
-
-require "../src/release/disc"
+require "../src/core/release/disc"
 
 describe DiscFormat do
   it "#has_attr" do

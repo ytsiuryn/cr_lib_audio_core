@@ -1,6 +1,5 @@
 require "json"
 require "levenshtein"
-
 require "../actor"
 require "./audio"
 require "./composition"
@@ -43,9 +42,13 @@ class Track
   @title = ""
   @unprocessed = Unprocessed.new
 
-  def initialize(pos : String = "", index : Int32 = -1)
+  def initialize(pos : String = "", index : Int32 = -1, path : String = "")
     @position = Track.normalize_pos(pos) # прэдстаўленне для чалавека
     @disc_num = Track.disc_num_by_track_pos(@position)
+    unless path.empty?
+      fi = File.info(path)
+      @finfo = FileInfo.new(fname = path, mtime = fi.modification_time.to_unix, fsize = fi.size)
+    end
   end
 
   # Формирование префикса имени файла на основании номера диска и позиции трека в альбоме.
@@ -61,9 +64,10 @@ class Track
   end
 
   # Disc number from track position.
+  #
   # Examples:
-  # [CD ("disk-track")](https://api.discogs.com/releases/2528044),
-  # [LP ("A,B,C,D,..")](https://api.discogs.com/releases/2373051)
+  # - [CD ("disk-track")](https://api.discogs.com/releases/2528044),
+  # - [LP ("A,B,C,D,..")](https://api.discogs.com/releases/2373051)
   #  и [other](https://api.discogs.com/releases/13452282)
   #
   # Track.disc_num_by_track_pos("C3")    # => 2

@@ -1,6 +1,5 @@
 require "spec"
-
-require "../src/track/record"
+require "../src/core/track/record"
 
 describe Record do
   it "empty?" do

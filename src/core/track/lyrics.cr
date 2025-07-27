@@ -4,11 +4,14 @@ require "json"
 
 # Список сервисов:
 # https://www.programmableweb.com/category/lyrics/api
-record Lyrics,
-  text : String = "",
-  lng : String = "", # 3-символьное обозначение
-  is_synced : Bool = false do
+struct Lyrics
   include JSON::Serializable
+  property text, lng, is_synced
+  @text : String = ""
+  @lng : String = "" # 3-символьное обозначение
+  @is_synced : Bool = false
+
+  def initialize; end
 
   def empty? : Bool
     @text.empty? && @lng.empty?

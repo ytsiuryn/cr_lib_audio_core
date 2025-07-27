@@ -1,7 +1,9 @@
+require "digest/crc32"
 require "json"
-
 require "./json"
 require "./note"
+
+COVER_REGEX = /(^https?:\/\/\S+\.(jpe?g|png|gif)(\?\S*)?$)|(^[\w\/~-]+\.(jpe?g|png|gif)$)/i
 
 # Тип внедренного в файл трека изображения.
 enum PictType
@@ -70,6 +72,15 @@ class PictureInAudio
   property url = ""
 
   def initialize(@pict_type : PictType); end
+
+  def self.file_reference?(value : String) : Bool
+    value =~ COVER_REGEX ? true : false
+  end
+
+  # Хеш-сумма по наиболее значимым полям.
+  def self.identity_hash(pict_type : PictType, width : Int32, height : Int32, data_length : Int32) : UInt64
+    {pict_type, width, height, data_length}.hash
+  end
 end
 
 # Свойства изображения для аудио (альбомы, исполнители, ...)
@@ -78,11 +89,18 @@ class PicturesInAudio
   include Enumerable(PictureInAudio)
   delegate :[], :<<, :each, :size, :to_json, to: @pictures
 
+  getter hashes = Set(UInt64).new
+
   def initialize(@pictures = [] of PictureInAudio); end
 
   def self.new(pull : JSON::PullParser)
     new.tap do |pictures|
       pull.read_array { pictures << PictureInAudio.new(pull) }
     end
+  end
+
+  def <<(pict : PictureInAudio)
+    @pictures << pict
+    @hashes << PictureInAudio.identity_hash(pict.pict_type, pict.md.width, pict.md.height, pict.data.size)
   end
 end

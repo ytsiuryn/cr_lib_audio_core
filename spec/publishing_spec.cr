@@ -1,6 +1,5 @@
 require "spec"
-
-require "../src/release/publishing"
+require "../src/core/release/publishing"
 
 describe Issue do
   it "#compare" do

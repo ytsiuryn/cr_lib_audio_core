@@ -1,5 +1,4 @@
 require "json"
-
 require "../json"
 
 alias DiscID = String
@@ -22,7 +21,7 @@ enum Media
   LP
 
   def self.new(s : String) : self # TODO: переименовать в `parse`
-    case s.to_down
+    case s.downcase
     when "lp", "vinyl" then Media::LP
     when "sacd"        then Media::SACD
     when "cd"          then Media::CD
