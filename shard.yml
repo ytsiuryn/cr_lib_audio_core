@@ -1,11 +1,11 @@
 name: core
-version: 0.3.0
+version: 0.3.1
 
 authors:
   - Yury Tsiuryn <yuri.turin@gmail.com>
 
-# description: |
-#   Short description of cr_ds
+description: |
+  Базовая структура и функционал для хранения метаданных альбома и его треков.
 
 # dependencies:
 #   pg:

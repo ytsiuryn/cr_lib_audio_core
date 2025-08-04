@@ -1,5 +1,6 @@
 require "digest/crc32"
 require "json"
+require "openssl"
 require "./json"
 require "./note"
 
@@ -78,8 +79,9 @@ class PictureInAudio
   end
 
   # Хеш-сумма по наиболее значимым полям.
-  def self.identity_hash(pict_type : PictType, width : Int32, height : Int32, data_length : Int32) : UInt64
-    {pict_type, width, height, data_length}.hash
+  def self.identity_hash(pict_type : PictType, width : Int32, height : Int32, data_length : Int32) : String
+    str = "#{pict_type}-#{width}-#{height}-#{data_length}"
+    OpenSSL::Digest.new("SHA256").update(str).hexfinal
   end
 end
 
@@ -89,7 +91,7 @@ class PicturesInAudio
   include Enumerable(PictureInAudio)
   delegate :[], :<<, :each, :size, :to_json, to: @pictures
 
-  getter hashes = Set(UInt64).new
+  getter hashes = Set(String).new
 
   def initialize(@pictures = [] of PictureInAudio); end
 

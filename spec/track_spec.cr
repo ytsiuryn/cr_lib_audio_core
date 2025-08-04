@@ -2,8 +2,6 @@ require "log"
 require "spec"
 require "../src/core/track"
 
-# TODO: Add tracks' compare test
-
 describe FileInfo do
   it "#empty?" do
     FileInfo.new.empty?.should be_true
@@ -83,5 +81,13 @@ describe Tracks do
     tracks << Track.new("B3")
     tracks.to_range("A2 to B2").should eq ["A2", "A3", "B1", "B2"]
     tracks.to_range("A2 to B2 to C1").should eq ["A2 to B2 to C1"]
+    tracks.to_range("A1 to A3, B3").should eq ["A1", "A2", "A3", "B3"]
+  end
+end
+
+describe Tracks do
+  it "#compare" do
+    ts = Tracks.new
+    ts.compare(Tracks.new).should eq 0
   end
 end

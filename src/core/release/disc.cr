@@ -20,7 +20,7 @@ enum Media
   REEL
   LP
 
-  def self.new(s : String) : self # TODO: переименовать в `parse`
+  def self.new(s : String) : self
     case s.downcase
     when "lp", "vinyl" then Media::LP
     when "sacd"        then Media::SACD
@@ -73,7 +73,7 @@ class DiscFormat
   end
 
   def compare(other : self) : Float64
-    @media == other.media ? 1.0 : 0.0 # а если пустые?
+    (@media != Media::UNKNOWN && @media == other.media) ? 1.0 : 0.0
   end
 end
 

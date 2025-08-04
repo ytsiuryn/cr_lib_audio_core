@@ -89,11 +89,11 @@ class Release
   end
 
   # Добавление актора в словарь идентификаторов внешней БД.
-  def add_actor(actor : String, ext_db : String, id : String)
+  def add_actor(actor : String, ext_db : OnlineDB, id : String)
     if !@actors.includes?(actor)
       @actors[actor] = IDs.new
     end
-    @actors[actor][OnlineDB.parse(ext_db)] = id
+    @actors[actor][ext_db] = id
   end
 
   # Добавить роль для актора релиза.

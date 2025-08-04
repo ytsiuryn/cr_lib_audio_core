@@ -9,11 +9,11 @@ require "../src/core/track"
 describe Release do
   it "#add_actor" do
     r = Release.new
-    r.add_actor("John Doe", ext_db: "discogs", id: "12345")
+    r.add_actor("John Doe", ext_db: OnlineDB::DISCOGS, id: "12345")
     r.actors.size.should eq 1
-    r.add_actor("John Doe", ext_db: "discogs", id: "12345")
+    r.add_actor("John Doe", ext_db: OnlineDB::DISCOGS, id: "12345")
     r.actors.size.should eq 1
-    r.add_actor("Cpt. Nemo", ext_db: "musicbrainz", id: "guid")
+    r.add_actor("Cpt. Nemo", ext_db: OnlineDB::MUSICBRAINZ, id: "guid")
     r.actors.size.should eq 2
   end
 

@@ -47,7 +47,7 @@ class Track
     @disc_num = Track.disc_num_by_track_pos(@position)
     unless path.empty?
       fi = File.info(path)
-      @finfo = FileInfo.new(fname = path, mtime = fi.modification_time.to_unix, fsize = fi.size)
+      @finfo = FileInfo.new(fname: path, mtime: fi.modification_time.to_unix, fsize: fi.size)
     end
   end
 
@@ -140,9 +140,17 @@ end
 class Tracks
   include JSON::Serializable
   include Enumerable(Track)
-  delegate :[], :<<, :each, :size, :to_json, to: @tracks
+  delegate :[], :[]=, :<<, :each, :size, :to_json, to: @tracks
 
   property tracks : Array(Track)
+
+  def initialize(size : Int32 = 0)
+    if size > 8
+      @tracks = Array(Track).new(size)
+    else
+      @tracks = [] of Track
+    end
+  end
 
   def initialize(@tracks = [] of Track); end
 
@@ -203,10 +211,46 @@ class Tracks
   end
 
   # Преобразование позиции вида "A2 to B3" в последовательность позиций "A2", ... "B1", "B2", "B3".
+  # def to_range(pos : String, delimiter : String = " to ") : Array(String)
+  #   # p = pos.split(/,( to )/).map(&.strip)
+  #   pp! pos.split(delimiter).flat_map { |el| el.split(',') }
+  #   p = pos.split(delimiter).flat_map { |el| el.split(',') }.flat_map(&.strip)
+  #   pp! p
+  #   return [pos] if p.size != 2
+  #   min, max = p.minmax
+  #   @tracks.compact_map { |track| track.position if track.position >= min && track.position <= max }
+  # end
+
   def to_range(pos : String, delimiter : String = " to ") : Array(String)
-    p = pos.split(delimiter)
-    return [pos] if p.size != 2
-    min, max = p.minmax
-    @tracks.compact_map { |track| track.position if track.position >= min && track.position <= max }
+    # Если строка содержит `delimiter` внутри, но не является простым диапазоном (например, "A2 to B2 to C1")
+    if pos.includes?(delimiter) && pos.split(/\s*to\s*/).size > 2
+      return [pos]
+    end
+
+    result = [] of String
+
+    # Разделяем по запятым, игнорируя запятые внутри "to"-диапазонов
+    parts = pos.split(/,(?![^,]*to)/).map(&.strip)
+
+    parts.each do |part|
+      if part.includes?(delimiter)
+        start_pos, end_pos = part.split(/\s*to\s*/).map(&.strip)
+        start_idx = @tracks.index { |t| t.position == start_pos } || 0
+        end_idx = @tracks.index { |t| t.position == end_pos } || @tracks.size - 1
+
+        if start_idx && end_idx
+          (start_idx..end_idx).each do |i|
+            result << @tracks[i].position if i < @tracks.size
+          end
+        end
+      else
+        # Просто добавляем позицию, если она существует
+        if @tracks.any? { |t| t.position == part }
+          result << part
+        end
+      end
+    end
+
+    result
   end
 end
