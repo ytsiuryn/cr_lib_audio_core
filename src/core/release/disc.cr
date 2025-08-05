@@ -113,8 +113,7 @@ class Discs
   include Enumerable(Disc)
   delegate :[], :each, :size, to_json, to: @discs
 
-  def initialize
-    @discs = [] of Disc
+  def initialize(@discs = [] of Disc)
     @total = 0
   end
 

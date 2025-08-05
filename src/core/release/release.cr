@@ -2,6 +2,7 @@ require "json"
 require "levenshtein"
 require "../actor"
 require "./disc"
+require "../generic"
 require "../genre"
 require "../id"
 require "../mood"
@@ -127,7 +128,7 @@ class Release
   end
 
   def aggregate_genres
-    f = FreqGenres.new
+    f = FrequencyCounter(String).new
     @tracks.each(&.aggregate_genres(f))
     f.with_frequency(@tracks.size).each do |genre|
       @genres << genre
@@ -136,7 +137,7 @@ class Release
   end
 
   def aggregate_notes
-    f = FreqNotes.new
+    f = FrequencyCounter(String).new
     @tracks.each(&.aggregate_notes(f))
     f.with_frequency(@tracks.size).each do |note|
       @notes << note
@@ -145,8 +146,10 @@ class Release
   end
 
   def aggregate_unprocessed
-    fu = FreqUnprocessed.new
+    fu = FrequencyCounter({TagName, TagVal}).new
     @tracks.each(&.aggregate_unprocessed(fu))
+
+    # Используем версию для Hash
     fu.with_frequency(@tracks.size).each do |k, v|
       @unprocessed[k] = v
       @tracks.each(&.unprocessed.delete(k))

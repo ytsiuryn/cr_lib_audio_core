@@ -3,6 +3,7 @@ require "levenshtein"
 require "../actor"
 require "./audio"
 require "./composition"
+require "../generic"
 require "../id"
 require "../json"
 require "../note"
@@ -123,15 +124,15 @@ class Track
     1.0 - Levenshtein.distance(@title, other.title) / 100
   end
 
-  def aggregate_genres(f : FreqGenres)
+  def aggregate_genres(f : FrequencyCounter(String))
     f.merge(@record.genres)
   end
 
-  def aggregate_notes(f : FreqNotes)
+  def aggregate_notes(f : FrequencyCounter(String))
     f.merge(@notes)
   end
 
-  def aggregate_unprocessed(fu : FreqUnprocessed)
+  def aggregate_unprocessed(fu : FrequencyCounter({TagName, TagVal}))
     fu.merge(@unprocessed)
   end
 end
@@ -143,14 +144,6 @@ class Tracks
   delegate :[], :[]=, :<<, :each, :size, :to_json, to: @tracks
 
   property tracks : Array(Track)
-
-  def initialize(size : Int32 = 0)
-    if size > 8
-      @tracks = Array(Track).new(size)
-    else
-      @tracks = [] of Track
-    end
-  end
 
   def initialize(@tracks = [] of Track); end
 
